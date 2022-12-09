@@ -11,7 +11,7 @@ import plotly.express as px
 import plotly.graph_objects as go
 
 def app():
-    st.title('Model 2 - Logistic Regression')
+    st.title('Model 4 - ARIMA')
     
     #start = '2004-08-18'
     #end = '2022-01-20'
@@ -31,7 +31,7 @@ def app():
     st.write(df.describe())
 
     #Visualizaciones 
-    st.subheader('Closing Price vs Time')
+    st.subheader('Close vs Date')
     fig = plt.figure(figsize = (12,6))
     plt.plot(df.Close)
     st.pyplot(fig)
@@ -64,6 +64,10 @@ def app():
     # Modelo RL
     
     ## Variables predictoras
+    
+    
+    
+    
     X = df[['Open-Close', 'High-Low']]
     ## Variable objetivo
     y = np.where(df['Close'].shift(-1) > df['Close'], 1, 0)
