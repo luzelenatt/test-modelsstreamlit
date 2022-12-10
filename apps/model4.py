@@ -1,7 +1,7 @@
 import streamlit as st
 import pandas as pd
 import numpy as np
-import matplotlib.pyplot as plt
+import matplotlib.pyplot as plt--
 import pandas_datareader as datas
 import plotly.express as px
 import plotly.graph_objects as go
@@ -19,18 +19,18 @@ def app():
 
     user_input = st.text_input('Introducir cotización bursátil' , 'NTDOY')
 
-    df = datas.DataReader(user_input, 'yahoo', start, end)
+    data = datas.DataReader(user_input, 'yahoo', start, end)
     
     # Describiendo los datos
     st.subheader('Datos del 2004 al 2022') 
-    st.write(df)
+    st.write(data)
     st.subheader('Información de la Estadística descrpitiva de la data') 
-    st.write(df.describe())
+    st.write(data.describe())
 
     #Visualizaciones 
     st.subheader('Close vs Date')
     fig = plt.figure(figsize = (15,8))
-    plt.plot(df.Close)
+    plt.plot(data.Close)
     st.pyplot(fig)
     
     result = seasonal_decompose(data["Close"], model='multiplicative', freq = 30)
@@ -42,11 +42,11 @@ def app():
     # Candlestick chart
     st.subheader('Gráfico Financiero') 
     candlestick = go.Candlestick(
-                            x=df.index,
-                            open=df['Open'],
-                            high=df['High'],
-                            low=df['Low'],
-                            close=df['Close']
+                            x=data.index,
+                            open=data['Open'],
+                            high=data['High'],
+                            low=data['Low'],
+                            close=data['Close']
                             )
 
     fig = go.Figure(data=[candlestick])
