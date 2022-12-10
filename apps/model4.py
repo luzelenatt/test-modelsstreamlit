@@ -9,6 +9,7 @@ from sklearn.metrics import confusion_matrix
 from sklearn.metrics import classification_report
 import plotly.express as px
 import plotly.graph_objects as go
+from statsmodels.tsa.seasonal import seasonal_decompose
 
 def app():
     st.title('Model 4 - ARIMA')
@@ -32,10 +33,19 @@ def app():
 
     #Visualizaciones 
     st.subheader('Close vs Date')
-    fig = plt.figure(figsize = (12,6))
-    plt.plot(df.Close)
+    plt.style.use('fivethirtyeight')
+    plt.figure(figsize=(15, 10))
+    plt.plot(data["Date"], data["Close"])
     st.pyplot(fig)
     
+    result = seasonal_decompose(data["Close"], model='multiplicative', freq = 30)
+    fig = plt.figure()  
+    fig = result.plot()  
+    fig.set_size_inches(15, 10)
+    st.pyplot(fig)
+   
+    
+    #########################
     # Candlestick chart
     st.subheader('Gráfico Financiero') 
     candlestick = go.Candlestick(
